@@ -88,8 +88,8 @@ public class HdfsUtil {
                     }
                     if (CollectionUtils.isNotEmpty(yearMonthList)) {
                         String schemaPath = hdfsServer + "/mywind/history/parquetSchema" + "/" + project.getName() + "/" + turbinePath.getName() + "/" + yearMonthList.get(0) + "/schema";
-                        String schema = readFile(schemaPath + "/part-00000");
-                        String fields = getFields(schema);
+                        String schemaContent = readFile(schemaPath + "/part-00000");
+                        String fields = getFields(schemaContent);
                         HiveUtil.createTable("parquet_" + turbinePath.getName(), turbinePath.toString(), fields, yearMonthList);
                     }
                 }
@@ -112,8 +112,8 @@ public class HdfsUtil {
 
     public static void main(String[] args) throws IOException, URISyntaxException, SQLException, ClassNotFoundException {
         HdfsUtil hdfsUtil = new HdfsUtil();
-        hdfsUtil.renameDir();
-        hdfsUtil.moveSchema();
+//        hdfsUtil.renameDir();
+//        hdfsUtil.moveSchema();
         hdfsUtil.createHiveTable();
     }
 }
